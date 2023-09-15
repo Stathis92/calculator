@@ -21,7 +21,7 @@ button {
 .calc {
   margin-top: 220px;
   width: 480px;
-  height: 600px;
+  height: 720px;
   padding: 18px;
   padding-bottom: 24px;
   background-color: #fe7f2d;
@@ -45,7 +45,7 @@ button {
   background-color: #fe7f2d;
 }
 
-.bottom {
+.middle {
   display: flex;
 }
 
@@ -55,8 +55,16 @@ button {
   flex-wrap: wrap;
 }
 
+.bottom {
+  display: flex;
+}
+
+.bottom #num0 {
+  width: 240px;
+}
+
 .right button {
-  height: 180px;
+  height: 240px;
 }
 
 .operator {
