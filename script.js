@@ -1,6 +1,7 @@
 const numberBtn = document.querySelectorAll(".number");
 const operatorBtn = document.querySelectorAll(".operator");
 const displ = document.getElementById("display");
+const displSmall = document.getElementById("displaySmall");
 
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
@@ -13,7 +14,18 @@ numberBtn.forEach((button) => {
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
     //OPERATOR BUTTON CLICKED FUNCTION
+    if (num1 == null) {
+      num1 = displ.innerText;
+      displSmall.innerHTML = num1;
+      flagDec = 0;
+    } else {
+      num2 = displ.innerText;
+      operate(tempOper, num1, num2);
+      flagDec = 0;
+    }
+    displ.innerHTML = "0";
     registerOperator(button.innerHTML);
+    console.log(num1 + " " + num2 + " HTML: " + displ.innerHTML);
   });
 });
 
@@ -32,17 +44,22 @@ function registerNumber(btn) {
 
 function registerOperator(btn) {
   if (displ.innerHTML == 0 && btn == "-") {
-    displ.innerHTML = btn;
+    displSmall.innerHTML = displ.innerHTML + btn;
   } else if (flagOper == 0) {
     flagOper = 1;
     tempOper = btn;
-    displ.innerHTML += btn;
+    displSmall.innerHTML += btn;
   }
 }
 
 function operate(oper, num1, num2) {
-  alert("WE ARE HERE");
+  displSmall.innerHTML = add(num1, num2);
+
+  num1 = displSmall.innerHTML;
+  num2 = null;
 }
+
+
 function add(num1, num2) {
   return parseInt(num1) + parseInt(num2);
 }
@@ -60,8 +77,8 @@ function divid(num1, num2) {
   return num1 / num2;
 }
 
-let num1 = 0;
-let num2 = 0;
+let num1 = null;
+let num2 = null;
 let flagOper = 0;
 let flagDec = 0;
 let tempOper = 0;
