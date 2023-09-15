@@ -21,7 +21,7 @@ button {
 .calc {
   margin-top: 220px;
   width: 480px;
-  height: 720px;
+  height: 790px;
   padding: 18px;
   padding-bottom: 24px;
   background-color: #fe7f2d;
@@ -36,6 +36,24 @@ button {
   display: flex;
   align-items: end;
   justify-content: end;
+  border-top: solid;
+}
+
+.displaySmall {
+  width: 480px;
+  height: 60px;
+  font-size: 32px;
+  background-color: #906121;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.displaysContainer{
+ outline: solid; 
+}
+
+.buttonsContainer{
   outline: solid;
 }
 
