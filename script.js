@@ -17,38 +17,49 @@ operatorBtn.forEach((button) => {
     if (num1 == null) {
       num1 = displ.innerText;
       displSmall.innerHTML = num1;
-      flagDec = 0;
+      flagDec = false;
     } else {
       num2 = displ.innerText;
       operate(tempOper, num1, num2);
-      flagDec = 0;
+      flagDec = false;
     }
-    displ.innerHTML = "0";
     registerOperator(button.innerHTML);
-    console.log(num1 + " " + num2 + " HTML: " + displ.innerHTML);
+    console.log(
+      "NUMBER 1: " + num1 + "\nNUMBER 2: " + num2 + "\nOPERATOR: " + tempOper
+    );
   });
 });
 
 function registerNumber(btn) {
+  if (btn == "." && flagDec == false) 
+    checkDec(btn);
+
   if (btn != ".") {
-    if (displ.innerHTML == 0) {
+    //CHECK EXISTING DISPLAY
+    if (displ.innerHTML == 0 && displ.innerHTML != "0.") {
       displ.innerHTML = btn;
     } else {
       displ.innerHTML += btn;
     }
-  } else if (flagDec == 0 && flagOper == 0) {
-    displ.innerHTML += btn;
-    flagDec = 1;
   }
+  //DISPLAY LOG -- DELETE LATER
+  console.log(displ.innerHTML);
+}
+
+function checkDec(btn) {
+  displ.innerHTML += btn;
+  flagDec = true;
 }
 
 function registerOperator(btn) {
   if (displ.innerHTML == 0 && btn == "-") {
-    displSmall.innerHTML = displ.innerHTML + btn;
+    displ.innerHTML = btn;
+    flagOper = 1;
   } else if (flagOper == 0) {
     flagOper = 1;
     tempOper = btn;
     displSmall.innerHTML += btn;
+    displ.innerHTML = "0";
   }
 }
 
@@ -58,7 +69,6 @@ function operate(oper, num1, num2) {
   num1 = displSmall.innerHTML;
   num2 = null;
 }
-
 
 function add(num1, num2) {
   return parseInt(num1) + parseInt(num2);
@@ -79,6 +89,6 @@ function divid(num1, num2) {
 
 let num1 = null;
 let num2 = null;
-let flagOper = 0;
-let flagDec = 0;
+let flagOper = false;
+let flagDec = false;
 let tempOper = 0;
