@@ -36,7 +36,7 @@ function registerNumber(btn) {
 
   if (btn != ".") {
     //CHECK EXISTING DISPLAY
-    if (displ.innerHTML == 0 && displ.innerHTML != "0.") {
+    if (displ.innerHTML == 0 && displ.innerHTML.length <= 1) {
       displ.innerHTML = btn;
     } else {
       displ.innerHTML += btn;
