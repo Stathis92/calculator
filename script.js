@@ -5,7 +5,8 @@ const displSmall = document.getElementById("displaySmall");
 
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    registerNumber(button.innerHTML);
+    if (displ.innerHTML.length < 9)
+      registerNumber(button.innerHTML);
     flagOper = false;
   });
 });
@@ -62,9 +63,9 @@ function registerOperator(btn) {
 }
 
 function changeOperator(btn) {
-  console.log(btn + tempOper + num1 + " " + num2);
   if (btn == tempOper && num2 != null) {
     operate(btn, num1, num2);
+    displSmall.innerHTML += btn;
   } else {
     displSmall.innerHTML =
       displSmall.innerHTML[displSmall.innerHTML.length - 2] + btn;
@@ -97,6 +98,7 @@ function sub(num1, num2) {}
 function mult(num1, num2) {}
 
 function divid(num1, num2) {}
+
 
 let num1 = null;
 let num2 = null;
