@@ -15,25 +15,23 @@ numberBtn.forEach((button) => {
 //Add EventListener for operators
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.id == "clear") allClear();
+    if (button.id == "clear" || button.id == "sum") allClear(button.id);
     else {
-      {
-        if (num1 == null) {
-          num1 = displ.innerText;
-          displSmall.innerHTML = displ.innerText;
-          resetDec();
+      if (num1 == null) {
+        num1 = displ.innerText;
+        displSmall.innerHTML = displ.innerText;
+        resetDec();
+      } else {
+        if (flagOper == true && button.className == "operator") {
+          changeOperator(button.innerHTML);
         } else {
-          if (flagOper == true && button.className == "operator") {
-            changeOperator(button.innerHTML);
-          } else {
-            num2 = displ.innerText;
-            resetDec();
-            operate(tempOper, num1, num2);
-          }
+          num2 = displ.innerText;
+          resetDec();
+          operate(tempOper, num1, num2);
         }
-        num1 = displSmall.innerHTML;
-        if (flagOper == false) registerOperator(button.innerHTML);
       }
+      num1 = displSmall.innerHTML;
+      if (flagOper == false) registerOperator(button.innerHTML);
     }
   });
 });
@@ -90,7 +88,7 @@ function changeOperator(btn) {
 
 function operate(oper, num1, num2) {
   let sum = 0;
-  let catchError = 0;
+  let option = 0;
 
   switch (oper) {
     case "+":
@@ -104,17 +102,22 @@ function operate(oper, num1, num2) {
       break;
     case "/":
       if (num2 == 0) {
-        catchError = 1;
+        option = 1;
         break;
       }
       sum = divid(num1, num2);
+      option = 2;
       break;
   }
 
   //Display Results
-  if (catchError == 0) displSmall.innerHTML = sum.toFixed(decLength);
+  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
   else {
-    displSmall.innerHTML = "I AM ERROR :D";
+    if (option == 2) {
+      displSmall.innerHTML = sum.toFixed(2);
+    } else {
+      displSmall.innerHTML = sum.toFixed(decLength);
+    }
   }
 }
 
@@ -131,20 +134,25 @@ function mult(num1, num2) {
 }
 
 function divid(num1, num2) {
-  return parseFloat(num1) / parseFloat(num2);
+  return parseInt(num1) / parseInt(num2);
 }
 
-function allClear() {
+function allClear(btn) {
+  if (btn == "clear") {
+    decCounter = 0;
+    decLength = 0;
+    flagOper = false;
+    flagDec = false;
+    displSmall.innerHTML = " ";
+  } else {
+    num2 = displ.innerText;
+    resetDec();
+    operate(tempOper, num1, num2);
+  }
+  displ.innerHTML = "0";
   num1 = null;
   num2 = null;
   tempOper = null;
-  decCounter = 0;
-  decLength = 0;
-  flagOper = false;
-  flagDec = false;
-
-  displ.innerHTML = "";
-  displSmall.innerHTML = "";
 }
 
 let num1 = null; //Variable to store first input
