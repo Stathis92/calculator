@@ -55,7 +55,6 @@ function resetDec() {
   flagDec = false;
   if (decCounter > decLength) decLength = decCounter;
   decCounter = 0;
-  console.log(decCounter + decLength);
 }
 
 function registerOperator(btn) {
@@ -75,7 +74,7 @@ function changeOperator(btn) {
     operate(btn, num1, num2);
     displSmall.innerHTML += btn;
   } else {
-    displSmall.innerHTML =
+    displSmall.innerHTML = displSmall.innerHTML.slice(0, -2) +
       displSmall.innerHTML[displSmall.innerHTML.length - 2] + btn;
   }
 }
@@ -97,7 +96,7 @@ function operate(oper, num1, num2) {
       displSmall.innerHTML = divid(num1, num2);
       break;
   }
-  displSmall.innerHTML = sum;
+  displSmall.innerHTML = sum.toFixed(decLength);
 }
 
 function add(num1, num2) {
