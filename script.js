@@ -68,46 +68,68 @@ function registerOperator(btn) {
     displ.innerHTML = "0";
   }
 }
-
+//TODO, CREATE DISPLAY FOR OPERATOR
 function changeOperator(btn) {
   if (btn == tempOper && num2 != null) {
     operate(btn, num1, num2);
+    tempOper = btn;
     displSmall.innerHTML += btn;
   } else {
-    displSmall.innerHTML = displSmall.innerHTML.slice(0, -2) +
-      displSmall.innerHTML[displSmall.innerHTML.length - 2] + btn;
+    tempOper = btn;
+    displSmall.innerHTML =
+      displSmall.innerHTML.slice(0, -2) +
+      displSmall.innerHTML[displSmall.innerHTML.length - 2] +
+      btn;
   }
 }
 
 function operate(oper, num1, num2) {
   let sum = 0;
+  let catchError = 0;
 
   switch (oper) {
     case "+":
       sum = add(num1, num2);
       break;
     case "-":
-      displSmall.innerHTML = sub(num1, num2);
+      sum = sub(num1, num2);
       break;
     case "*":
-      displSmall.innerHTML = mult(num1, num2);
+      sum = mult(num1, num2);
       break;
     case "/":
-      displSmall.innerHTML = divid(num1, num2);
+      if (num2 == 0) {
+        catchError = 1;
+        break;
+      }
+      sum = divid(num1, num2);
       break;
   }
-  displSmall.innerHTML = sum.toFixed(decLength);
+
+
+  //Display Results
+  if (catchError == 0)
+    displSmall.innerHTML = sum.toFixed(decLength);
+  else{
+    displSmall.innerHTML = "I AM ERROR :D";
+  }
 }
 
 function add(num1, num2) {
   return (parseFloat(num1) * 100 + parseFloat(num2) * 100) / 100;
 }
 
-function sub(num1, num2) {}
+function sub(num1, num2) {
+  return (parseFloat(num1) * 100 - parseFloat(num2) * 100) / 100;
+}
 
-function mult(num1, num2) {}
+function mult(num1, num2) {
+  return parseFloat(num1) * parseFloat(num2);
+}
 
-function divid(num1, num2) {}
+function divid(num1, num2) {
+  return parseFloat(num1) / parseFloat(num2);
+}
 
 let num1 = null; //Variable to store first input
 let num2 = null; //Variable to store first input
