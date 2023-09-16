@@ -1,8 +1,10 @@
+//Load all elements
 const numberBtn = document.querySelectorAll(".number");
 const operatorBtn = document.querySelectorAll(".operator");
 const displ = document.getElementById("display");
 const displSmall = document.getElementById("displaySmall");
 
+//Add EventListener for numbers
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
     if (displ.innerHTML.length < 9)
@@ -11,9 +13,9 @@ numberBtn.forEach((button) => {
   });
 });
 
+//Add EventListener for operators
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    //OPERATOR BUTTON CLICKED FUNCTION
     if (num1 == null) {
       num1 = displ.innerText;
       displSmall.innerHTML = displ.innerText;
@@ -36,12 +38,13 @@ function registerNumber(btn) {
   if (btn == "." && flagDec == false) checkDec(btn);
 
   if (btn != ".") {
-    //CHECK EXISTING DISPLAY
     if (displ.innerHTML == 0 && displ.innerHTML.length <= 1) {
       displ.innerHTML = btn;
     } else {
       displ.innerHTML += btn;
     }
+    if (flagDec == true)
+      decLength++;
   }
 }
 
@@ -73,9 +76,11 @@ function changeOperator(btn) {
 }
 
 function operate(oper, num1, num2) {
+  let sum = 0;
+
   switch (oper) {
     case "+":
-      displSmall.innerHTML = add(num1, num2);
+      sum = add(num1, num2);
       break;
     case "-":
       displSmall.innerHTML = sub(num1, num2);
@@ -87,10 +92,11 @@ function operate(oper, num1, num2) {
       displSmall.innerHTML = divid(num1, num2);
       break;
   }
+  displSmall.innerHTML = sum;
 }
 
 function add(num1, num2) {
-  return parseInt(num1) + parseInt(num2);
+  return (((parseFloat(num1) * 100) + (parseFloat(num2) * 100)) / 100);
 }
 
 function sub(num1, num2) {}
@@ -100,8 +106,10 @@ function mult(num1, num2) {}
 function divid(num1, num2) {}
 
 
-let num1 = null;
-let num2 = null;
-let flagOper = false;
-let flagDec = false;
-let tempOper = 0;
+let num1 = null; //Variable to store first input
+let num2 = null; //Variable to store first input
+let tempOper = null; //Variable to store operator
+
+let decLength = 0; //Variable to count total decimals
+let flagOper = false; //Flag if there is already an operator in memory
+let flagDec = false; //Flag if number has already a decimal
