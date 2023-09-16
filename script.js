@@ -15,21 +15,26 @@ numberBtn.forEach((button) => {
 //Add EventListener for operators
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (num1 == null) {
-      num1 = displ.innerText;
-      displSmall.innerHTML = displ.innerText;
-      resetDec();
-    } else {
-      if (flagOper == true && button.className == "operator") {
-        changeOperator(button.innerHTML);
-      } else {
-        num2 = displ.innerText;
-        resetDec();
-        operate(tempOper, num1, num2);
+    if (button.id == "clear") allClear();
+    else {
+      {
+        if (num1 == null) {
+          num1 = displ.innerText;
+          displSmall.innerHTML = displ.innerText;
+          resetDec();
+        } else {
+          if (flagOper == true && button.className == "operator") {
+            changeOperator(button.innerHTML);
+          } else {
+            num2 = displ.innerText;
+            resetDec();
+            operate(tempOper, num1, num2);
+          }
+        }
+        num1 = displSmall.innerHTML;
+        if (flagOper == false) registerOperator(button.innerHTML);
       }
     }
-    num1 = displSmall.innerHTML;
-    if (flagOper == false) registerOperator(button.innerHTML);
   });
 });
 
@@ -106,11 +111,9 @@ function operate(oper, num1, num2) {
       break;
   }
 
-
   //Display Results
-  if (catchError == 0)
-    displSmall.innerHTML = sum.toFixed(decLength);
-  else{
+  if (catchError == 0) displSmall.innerHTML = sum.toFixed(decLength);
+  else {
     displSmall.innerHTML = "I AM ERROR :D";
   }
 }
@@ -129,6 +132,19 @@ function mult(num1, num2) {
 
 function divid(num1, num2) {
   return parseFloat(num1) / parseFloat(num2);
+}
+
+function allClear() {
+  num1 = null;
+  num2 = null;
+  tempOper = null;
+  decCounter = 0;
+  decLength = 0;
+  flagOper = false;
+  flagDec = false;
+
+  displ.innerHTML = "";
+  displSmall.innerHTML = "";
 }
 
 let num1 = null; //Variable to store first input
