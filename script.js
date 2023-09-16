@@ -24,8 +24,8 @@ operatorBtn.forEach((button) => {
         changeOperator(button.innerHTML);
       } else {
         num2 = displ.innerText;
-        operate(tempOper, num1, num2);
         resetDec();
+        operate(tempOper, num1, num2);
       }
     }
     num1 = displSmall.innerHTML;
