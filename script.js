@@ -7,8 +7,7 @@ const displSmall = document.getElementById("displaySmall");
 //Add EventListener for numbers
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (displ.innerHTML.length < 9)
-      registerNumber(button.innerHTML);
+    if (displ.innerHTML.length < 9) registerNumber(button.innerHTML);
     flagOper = false;
   });
 });
@@ -19,14 +18,14 @@ operatorBtn.forEach((button) => {
     if (num1 == null) {
       num1 = displ.innerText;
       displSmall.innerHTML = displ.innerText;
-      flagDec = false;
+      resetDec();
     } else {
       if (flagOper == true && button.className == "operator") {
         changeOperator(button.innerHTML);
       } else {
         num2 = displ.innerText;
         operate(tempOper, num1, num2);
-        flagDec = false;
+        resetDec();
       }
     }
     num1 = displSmall.innerHTML;
@@ -43,14 +42,20 @@ function registerNumber(btn) {
     } else {
       displ.innerHTML += btn;
     }
-    if (flagDec == true)
-      decLength++;
+    if (flagDec == true) decCounter++;
   }
 }
 
 function checkDec(btn) {
   displ.innerHTML += btn;
   flagDec = true;
+}
+
+function resetDec() {
+  flagDec = false;
+  if (decCounter > decLength) decLength = decCounter;
+  decCounter = 0;
+  console.log(decCounter + decLength);
 }
 
 function registerOperator(btn) {
@@ -96,7 +101,7 @@ function operate(oper, num1, num2) {
 }
 
 function add(num1, num2) {
-  return (((parseFloat(num1) * 100) + (parseFloat(num2) * 100)) / 100);
+  return (parseFloat(num1) * 100 + parseFloat(num2) * 100) / 100;
 }
 
 function sub(num1, num2) {}
@@ -105,11 +110,12 @@ function mult(num1, num2) {}
 
 function divid(num1, num2) {}
 
-
 let num1 = null; //Variable to store first input
 let num2 = null; //Variable to store first input
 let tempOper = null; //Variable to store operator
 
-let decLength = 0; //Variable to count total decimals
+let decCounter = 0; // Variable to count decimals
+let decLength = 0; //Variable of max decimals in both numbers
+
 let flagOper = false; //Flag if there is already an operator in memory
 let flagDec = false; //Flag if number has already a decimal
