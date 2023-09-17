@@ -1,3 +1,16 @@
+//All variables
+let num1 = null; //Variable to store first input
+let num2 = null; //Variable to store first input
+let tempOper = null; //Variable to store operator
+const INPUT_LIMIT = 9;
+
+let decCounter = 0; // Variable to count decimals
+let decLength = 0; //Variable of max decimals in both numbers
+
+let flagOper = false; //Flag if there is already an operator in memory
+let flagDec = false; //Flag if number has already a decimal
+let equalBtn = false; //Flag if button was equal sign
+
 //Load all elements
 const numberBtn = document.querySelectorAll(".number");
 const operatorBtn = document.querySelectorAll(".operator");
@@ -7,7 +20,7 @@ const displSmall = document.getElementById("displaySmall");
 //Add EventListener for numbers
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (displ.innerHTML.length < 9) registerNumber(button.innerHTML);
+    if (displ.innerHTML.length < INPUT_LIMIT) registerNumber(button.innerHTML);
     flagOper = false;
   });
 });
@@ -49,17 +62,6 @@ function registerNumber(btn) {
   }
 }
 
-function checkDec(btn) {
-  displ.innerHTML += btn;
-  flagDec = true;
-}
-
-function resetDec() {
-  flagDec = false;
-  if (decCounter > decLength) decLength = decCounter;
-  decCounter = 0;
-}
-
 function registerOperator(btn) {
   if (displ.innerHTML == 0 && btn.id == "sub") {
     displ.innerHTML = btn.innerHTML;
@@ -71,7 +73,7 @@ function registerOperator(btn) {
     displ.innerHTML = "0";
   }
 }
-//TODO, CREATE DISPLAY FOR OPERATOR
+
 function changeOperator(btn) {
   if (btn.id == tempOper && num2 != null) {
     operate(btn.id, num1, num2);
@@ -83,6 +85,61 @@ function changeOperator(btn) {
       displSmall.innerHTML.slice(0, -2) +
       displSmall.innerHTML[displSmall.innerHTML.length - 2] +
       btn.innerHTML;
+  }
+}
+
+function allClear(btn) {
+  if (btn == "clear") {
+    decCounter = 0;
+    decLength = 0;
+    flagOper = false;
+    flagDec = false;
+    displ.innerHTML = "0";
+  } else {
+    num2 = displ.innerText;
+    resetDec();
+    equalBtn = true;
+    operate(tempOper, num1, num2);
+  }
+  equalBtn = false;
+  displSmall.innerHTML = " ";
+  num1 = null;
+  num2 = null;
+  tempOper = null;
+  option = 0;
+}
+
+function checkDec(btn) {
+  displ.innerHTML += btn;
+  flagDec = true;
+}
+
+function resetDec() {
+  flagDec = false;
+  if (decCounter > decLength) decLength = decCounter;
+  decCounter = 0;
+}
+
+function displayResults(option, sum) {
+  if (equalBtn == true) {
+    //Displaying results in displ
+    if (option == 1) displ.innerHTML = "I AM ERROR :D";
+    else {
+      if (option == 2) {
+        displ.innerHTML = sum.toFixed(2);
+      } else {
+        displ.innerHTML = sum.toFixed(decLength);
+      }
+    }
+  }
+  //Displaying results in displSmall
+  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
+  else {
+    if (option == 2) {
+      displSmall.innerHTML = sum.toFixed(2);
+    } else {
+      displSmall.innerHTML = sum.toFixed(decLength);
+    }
   }
 }
 
@@ -110,29 +167,10 @@ function operate(oper, num1, num2) {
       break;
   }
 
-  //Display Results
-  if (equalBtn == true)
-  {
-    if (option == 1) displ.innerHTML = "I AM ERROR :D";
-    else {
-      if (option == 2) {
-        displ.innerHTML = sum.toFixed(2);
-      } else {
-        displ.innerHTML = sum.toFixed(decLength);
-      }
-    }
-  }
-
-  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
-  else {
-    if (option == 2) {
-      displSmall.innerHTML = sum.toFixed(2);
-    } else {
-      displSmall.innerHTML = sum.toFixed(decLength);
-    }
-  }
+  displayResults(option, sum);
 }
 
+//Functions for all calculations
 function add(num1, num2) {
   return (parseFloat(num1) * 100 + parseFloat(num2) * 100) / 100;
 }
@@ -148,35 +186,3 @@ function mult(num1, num2) {
 function divid(num1, num2) {
   return parseInt(num1) / parseInt(num2);
 }
-
-function allClear(btn) {
-  if (btn == "clear") {
-    decCounter = 0;
-    decLength = 0;
-    flagOper = false;
-    flagDec = false;
-    displ.innerHTML = "0";
-  } else {
-    num2 = displ.innerText;
-    resetDec();
-    equalBtn = true;
-    operate(tempOper, num1, num2);
-  }
-  equalBtn = false;
-  displSmall.innerHTML = " ";
-  num1 = null;
-  num2 = null;
-  tempOper = null;
-  option = 0;
-}
-
-let num1 = null; //Variable to store first input
-let num2 = null; //Variable to store first input
-let tempOper = null; //Variable to store operator
-
-let decCounter = 0; // Variable to count decimals
-let decLength = 0; //Variable of max decimals in both numbers
-
-let flagOper = false; //Flag if there is already an operator in memory
-let flagDec = false; //Flag if number has already a decimal
-let equalBtn = false;
