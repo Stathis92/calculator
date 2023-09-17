@@ -23,7 +23,7 @@ operatorBtn.forEach((button) => {
         resetDec();
       } else {
         if (flagOper == true && button.className == "operator") {
-          changeOperator(button.innerHTML);
+          changeOperator(button);
         } else {
           num2 = displ.innerText;
           resetDec();
@@ -31,7 +31,7 @@ operatorBtn.forEach((button) => {
         }
       }
       num1 = displSmall.innerHTML;
-      if (flagOper == false) registerOperator(button.innerHTML);
+      if (flagOper == false) registerOperator(button);
     }
   });
 });
@@ -61,46 +61,48 @@ function resetDec() {
 }
 
 function registerOperator(btn) {
-  if (displ.innerHTML == 0 && btn == "-") {
-    displ.innerHTML = btn;
+  if (displ.innerHTML == 0 && btn.id == "sub") {
+    displ.innerHTML = btn.innerHTML;
     flagOper = true;
   } else if (flagOper == false) {
     flagOper = true;
-    tempOper = btn;
-    displSmall.innerHTML += btn;
+    tempOper = btn.id;
+    displSmall.innerHTML += btn.innerHTML;
     displ.innerHTML = "0";
   }
 }
 //TODO, CREATE DISPLAY FOR OPERATOR
 function changeOperator(btn) {
-  if (btn == tempOper && num2 != null) {
-    operate(btn, num1, num2);
-    tempOper = btn;
-    displSmall.innerHTML += btn;
+  if (btn.id == tempOper && num2 != null) {
+    operate(btn.id, num1, num2);
+    tempOper = btn.id;
+    displSmall.innerHTML += btn.innerHTML;
   } else {
-    tempOper = btn;
+    tempOper = btn.id;
     displSmall.innerHTML =
       displSmall.innerHTML.slice(0, -2) +
       displSmall.innerHTML[displSmall.innerHTML.length - 2] +
-      btn;
+      btn.innerHTML;
   }
 }
 
 function operate(oper, num1, num2) {
+
+  console.log("OPER:" + oper);
   let sum = 0;
   let option = 0;
 
   switch (oper) {
-    case "+":
+    case "add":
       sum = add(num1, num2);
       break;
-    case "-":
+    case "sub":
       sum = sub(num1, num2);
       break;
-    case "*":
+    case "mult":
       sum = mult(num1, num2);
       break;
-    case "/":
+    case "divid":
       if (num2 == 0) {
         option = 1;
         break;
