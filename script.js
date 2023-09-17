@@ -118,7 +118,15 @@ function allClear(btn) {
 }
 
 function checkDec(btn) {
-  displ.innerHTML += btn;
+  for (let i = 0; i< displ.innerHTML.length; i++)
+  {
+    console.log(i);
+    if (displ.innerHTML[i] == ".")
+      flagDec = true;
+  }
+  if (flagDec == false){
+    displ.innerHTML += btn;
+  }
   flagDec = true;
 }
 
