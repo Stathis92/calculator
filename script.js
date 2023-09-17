@@ -87,8 +87,8 @@ function changeOperator(btn) {
 }
 
 function operate(oper, num1, num2) {
-  console.log("OPER:" + oper);
   let sum = 0;
+  let option = 0;
 
   switch (oper) {
     case "add":
@@ -111,15 +111,20 @@ function operate(oper, num1, num2) {
   }
 
   //Display Results
-  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
-  else {
-    if (option == 3) {
+  if (equalBtn == true)
+  {
+    if (option == 1) displ.innerHTML = "I AM ERROR :D";
+    else {
       if (option == 2) {
-        return sum.toFixed(2);
+        displ.innerHTML = sum.toFixed(2);
       } else {
-        return sum.toFixed(decLength);
+        displ.innerHTML = sum.toFixed(decLength);
       }
     }
+  }
+
+  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
+  else {
     if (option == 2) {
       displSmall.innerHTML = sum.toFixed(2);
     } else {
@@ -154,9 +159,10 @@ function allClear(btn) {
   } else {
     num2 = displ.innerText;
     resetDec();
-    option = 3;
-    displ.innerHTML = operate(tempOper, num1, num2);
+    equalBtn = true;
+    operate(tempOper, num1, num2);
   }
+  equalBtn = false;
   displSmall.innerHTML = " ";
   num1 = null;
   num2 = null;
@@ -173,4 +179,4 @@ let decLength = 0; //Variable of max decimals in both numbers
 
 let flagOper = false; //Flag if there is already an operator in memory
 let flagDec = false; //Flag if number has already a decimal
-let option = 0;
+let equalBtn = false;
