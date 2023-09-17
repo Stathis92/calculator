@@ -17,7 +17,7 @@ operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.id == "clear" || button.id == "sum") allClear(button.id);
     else {
-      if (num1 == null) {
+      if (num1 == null || displ.innerHTML.charAt(0) == "-") {
         num1 = displ.innerText;
         displSmall.innerHTML = displ.innerText;
         resetDec();
