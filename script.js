@@ -2,7 +2,7 @@
 let num1 = null; //Variable to store first input
 let num2 = null; //Variable to store first input
 let tempOper = null; //Variable to store operator
-const INPUT_LIMIT = 9;
+const INPUT_LIMIT = 11;
 
 let decCounter = 0; // Variable to count decimals
 let decLength = 0; //Variable of max decimals in both numbers
