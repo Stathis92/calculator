@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #235789;
+  background-color: #173a5a;
   font-family: Verdana ,Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
@@ -15,9 +15,8 @@ button {
   width: 120px;
   height: 120px;
   font-size: 56px;
-  background-color: #E2E8CE;
-  border-radius: 10px;
-  color: #152439;
+  background-color: #d7dbca;
+  border-radius: 12px;
 }
 
 .calc {
@@ -103,14 +102,14 @@ button {
 }
 
 .operator {
-  background-color: #2B4162;
-  color: #E2E8CE;
+  background-color: #243754;
+  color: #F0EDEE;
 }
 
 .operator:hover {
-  background-color: #7187a8;
+  background-color: #3c5479;
 }
 
 .left button:hover {
-  background-color: #909387;
+  background-color: #85887b;
 }
