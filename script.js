@@ -132,7 +132,7 @@ function displayResults(option, sum) {
   if (equalBtn == true) {
     //Displaying results in displ
     if (option == 1) {
-      displ.innerHTML = "I AM ERROR :)";
+      displ.innerHTML = "I am Error";
       divError = true;
     } else {
       if (option == 2) {
@@ -144,7 +144,7 @@ function displayResults(option, sum) {
   }
   //Displaying results in displSmall
   if (option == 1) {
-    displSmall.innerHTML = "I AM ERROR :D";
+    displSmall.innerHTML = "I am Error";
     divError = true;
   } else {
     if (option == 2) {
