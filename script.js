@@ -10,6 +10,7 @@ let decLength = 0; //Variable of max decimals in both numbers
 let flagOper = false; //Flag if there is already an operator in memory
 let flagDec = false; //Flag if number has already a decimal
 let equalBtn = false; //Flag if button was equal sign
+let divError = false;
 
 //Load all elements
 const numberBtn = document.querySelectorAll(".number");
@@ -20,7 +21,9 @@ const displSmall = document.getElementById("displaySmall");
 //Add EventListener for numbers
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (displ.innerHTML.length < INPUT_LIMIT) registerNumber(button.innerHTML);
+    if (divError == false)
+      if (displ.innerHTML.length < INPUT_LIMIT)
+        registerNumber(button.innerHTML);
     flagOper = false;
   });
 });
@@ -29,22 +32,24 @@ numberBtn.forEach((button) => {
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.id == "clear" || button.id == "sum") allClear(button.id);
-    else {
-      if (num1 == null || displ.innerHTML.charAt(0) == "-") {
-        num1 = displ.innerText;
-        displSmall.innerHTML = displ.innerText;
-        resetDec();
-      } else {
-        if (flagOper == true && button.className == "operator") {
-          changeOperator(button);
-        } else {
-          num2 = displ.innerText;
+    else if (divError == false) {
+      {
+        if (num1 == null || displ.innerHTML.charAt(0) == "-") {
+          num1 = displ.innerText;
+          displSmall.innerHTML = displ.innerText;
           resetDec();
-          operate(tempOper, num1, num2);
+        } else {
+          if (flagOper == true && button.className == "operator") {
+            changeOperator(button);
+          } else {
+            num2 = displ.innerText;
+            resetDec();
+            operate(tempOper, num1, num2);
+          }
         }
+        num1 = displSmall.innerHTML;
+        if (flagOper == false) registerOperator(button);
       }
-      num1 = displSmall.innerHTML;
-      if (flagOper == false) registerOperator(button);
     }
   });
 });
@@ -63,14 +68,16 @@ function registerNumber(btn) {
 }
 
 function registerOperator(btn) {
-  if (displ.innerHTML == 0 && btn.id == "sub") {
-    displ.innerHTML = btn.innerHTML;
-    flagOper = true;
-  } else if (flagOper == false) {
-    flagOper = true;
-    tempOper = btn.id;
-    displSmall.innerHTML += btn.innerHTML;
-    displ.innerHTML = "0";
+  if (divError == false) {
+    if (displ.innerHTML == 0 && btn.id == "sub") {
+      displ.innerHTML = btn.innerHTML;
+      flagOper = true;
+    } else if (flagOper == false) {
+      flagOper = true;
+      tempOper = btn.id;
+      displSmall.innerHTML += btn.innerHTML;
+      displ.innerHTML = "0";
+    }
   }
 }
 
@@ -95,7 +102,8 @@ function allClear(btn) {
     flagOper = false;
     flagDec = false;
     displ.innerHTML = "0";
-  } else {
+    divError = false;
+  } else if (divError == false) {
     num2 = displ.innerText;
     resetDec();
     equalBtn = true;
@@ -123,8 +131,10 @@ function resetDec() {
 function displayResults(option, sum) {
   if (equalBtn == true) {
     //Displaying results in displ
-    if (option == 1) displ.innerHTML = "I AM ERROR :D";
-    else {
+    if (option == 1) {
+      displ.innerHTML = "I AM ERROR :)";
+      divError = true;
+    } else {
       if (option == 2) {
         displ.innerHTML = sum.toFixed(2);
       } else {
@@ -133,8 +143,10 @@ function displayResults(option, sum) {
     }
   }
   //Displaying results in displSmall
-  if (option == 1) displSmall.innerHTML = "I AM ERROR :D";
-  else {
+  if (option == 1) {
+    displSmall.innerHTML = "I AM ERROR :D";
+    divError = true;
+  } else {
     if (option == 2) {
       displSmall.innerHTML = sum.toFixed(2);
     } else {
