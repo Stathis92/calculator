@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #224215;
+  background-color: #235789;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
@@ -15,7 +15,9 @@ button {
   width: 120px;
   height: 120px;
   font-size: 56px;
-  background-color: #619b8a;
+  background-color: #E2E8CE;
+  border-radius: 10px;
+  color: #152439;
 }
 
 .calc {
@@ -24,43 +26,57 @@ button {
   height: 790px;
   padding: 18px;
   padding-bottom: 24px;
-  background-color: #fe7f2d;
-  outline: solid;
+  background-color: #F0EDEE;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
 }
 
 .display {
   width: 480px;
   height: 120px;
   font-size: 68px;
-  background-color: #fcca46;
+  background-color: #E6C229;
   display: flex;
   align-items: end;
   justify-content: end;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
 .displaySmall {
   width: 480px;
   height: 60px;
   font-size: 32px;
-  background-color: #906121;
+  background-color: #fe6c55;
   display: flex;
   align-items: center;
   justify-content: end;
   border-top: solid;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .displaysContainer{
  outline: solid; 
+ border-top-left-radius: 25px;
+ border-top-right-radius: 25px;
+
+ border-bottom-left-radius: 15px;
+ border-bottom-right-radius: 15px;
 }
 
 .buttonsContainer{
   outline: solid;
+  border-radius: 10px;
+  background-color: #100e0b;
 }
 
 .top {
   margin-top: 12px;
   display: flex;
-  background-color: #fe7f2d;
+  border-radius: 10px;
+  background-color: #100e0b;
 }
 
 .middle {
@@ -86,13 +102,14 @@ button {
 }
 
 .operator {
-  background-color: #8eac71;
+  background-color: #2B4162;
+  color: #E2E8CE;
 }
 
 .operator:hover {
-  background-color: #a7cd83;
+  background-color: #7187a8;
 }
 
 .left button:hover {
-  background-color: #7cac9f;
+  background-color: #909387;
 }
