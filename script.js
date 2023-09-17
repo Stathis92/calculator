@@ -137,6 +137,8 @@ function resetDec() {
 }
 
 function displayResults(option, sum) {
+  if (sum.toString().length > 11 && option != 2)
+      sum = expo(sum, 6); 
   if (equalBtn == true) {
     //Displaying results in displ
     if (option == 1) {
@@ -144,9 +146,10 @@ function displayResults(option, sum) {
       divError = true;
     } else {
       if (option == 2) {
-        displ.innerHTML = sum.toFixed(2);
+        displ.innerHTML = sum.toFixed();
+
       } else {
-        displ.innerHTML = sum.toFixed(decLength);
+        displ.innerHTML = sum;
       }
     }
   }
@@ -156,9 +159,9 @@ function displayResults(option, sum) {
     divError = true;
   } else {
     if (option == 2) {
-      displSmall.innerHTML = sum.toFixed(2);
+      displSmall.innerHTML = sum.toFixed();
     } else {
-      displSmall.innerHTML = sum.toFixed(decLength);
+      displSmall.innerHTML = sum;
     }
   }
 }
@@ -204,5 +207,9 @@ function mult(num1, num2) {
 }
 
 function divid(num1, num2) {
-  return parseInt(num1) / parseInt(num2);
+  return (parseFloat(num1) / parseFloat(num2) * 100) / 100;
+}
+
+function expo(num, e) {
+  return Number.parseFloat(num).toExponential(e);
 }
