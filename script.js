@@ -1,6 +1,6 @@
 //All variables
-let num1 = null; //Variable to store first input
-let num2 = null; //Variable to store first input
+let num1 = 0; //Variable to store first input
+let num2 = 0; //Variable to store first input
 let tempOper = null; //Variable to store operator
 const INPUT_LIMIT = 11;
 
@@ -34,7 +34,7 @@ operatorBtn.forEach((button) => {
     if (button.id == "clear" || button.id == "sum") allClear(button.id);
     else if (divError == false) {
       {
-        if (num1 == null || displ.innerHTML.charAt(0) == "-") {
+        if (num1 == 0 || displ.innerHTML.charAt(0) == "-") {
           num1 = displ.innerText;
           displSmall.innerHTML = displ.innerText;
           resetDec();
@@ -82,7 +82,7 @@ function registerOperator(btn) {
 }
 
 function changeOperator(btn) {
-  if (btn.id == tempOper && num2 != null) {
+  if (btn.id == tempOper && num2 != 0) {
     operate(btn.id, num1, num2);
     tempOper = btn.id;
     displSmall.innerHTML += btn.innerHTML;
@@ -111,8 +111,8 @@ function allClear(btn) {
   }
   equalBtn = false;
   displSmall.innerHTML = " ";
-  num1 = null;
-  num2 = null;
+  num1 = 0;
+  num2 = 0;
   tempOper = null;
   option = 0;
 }
