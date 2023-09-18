@@ -118,13 +118,10 @@ function allClear(btn) {
 }
 
 function checkDec(btn) {
-  for (let i = 0; i< displ.innerHTML.length; i++)
-  {
-    console.log(i);
-    if (displ.innerHTML[i] == ".")
-      flagDec = true;
+  for (let i = 0; i < displ.innerHTML.length; i++) {
+    if (displ.innerHTML[i] == ".") flagDec = true;
   }
-  if (flagDec == false){
+  if (flagDec == false) {
     displ.innerHTML += btn;
   }
   flagDec = true;
@@ -137,20 +134,19 @@ function resetDec() {
 }
 
 function displayResults(option, sum) {
-  if (sum.toString().length > 11 && option != 2)
-      sum = expo(sum, 6); 
+  console.log(sum);
+  if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
+  if (sum.toFixed(sum.toString().length) > 11 && option == 2)
+    sum = expo(sum, 6);
+  if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
+
   if (equalBtn == true) {
     //Displaying results in displ
     if (option == 1) {
       displ.innerHTML = "I am Error";
       divError = true;
     } else {
-      if (option == 2) {
-        displ.innerHTML = sum.toFixed();
-
-      } else {
-        displ.innerHTML = sum;
-      }
+      displ.innerHTML = sum;
     }
   }
   //Displaying results in displSmall
@@ -158,11 +154,7 @@ function displayResults(option, sum) {
     displSmall.innerHTML = "I am Error";
     divError = true;
   } else {
-    if (option == 2) {
-      displSmall.innerHTML = sum.toFixed();
-    } else {
-      displSmall.innerHTML = sum;
-    }
+    displSmall.innerHTML = sum;
   }
 }
 
@@ -173,6 +165,7 @@ function operate(oper, num1, num2) {
   switch (oper) {
     case "add":
       sum = add(num1, num2);
+      option = 3;
       break;
     case "sub":
       sum = sub(num1, num2);
@@ -207,7 +200,7 @@ function mult(num1, num2) {
 }
 
 function divid(num1, num2) {
-  return (parseFloat(num1) / parseFloat(num2) * 100) / 100;
+  return ((parseFloat(num1) / parseFloat(num2)) * 100) / 100;
 }
 
 function expo(num, e) {
