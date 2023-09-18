@@ -18,17 +18,20 @@ const operatorBtn = document.querySelectorAll(".operator");
 const displ = document.getElementById("display");
 const displSmall = document.getElementById("displaySmall");
 
-//Add EventListener for numbers
+document.addEventListener("keydown", keyPressed);
+
+function keyPressed(e) {
+  console.log(e.code);
+}
+
+//Add EventListener for number buttons
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (divError == false)
-      if (displ.innerHTML.length < INPUT_LIMIT)
-        registerNumber(button.innerHTML);
-    flagOper = false;
+    if (divError == false) registerNumber(button.innerHTML);
   });
 });
 
-//Add EventListener for operators
+//Add EventListener for operator buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.id == "clear" || button.id == "sum") allClear(button.id);
@@ -55,16 +58,19 @@ operatorBtn.forEach((button) => {
 });
 
 function registerNumber(btn) {
-  if (btn == "." && flagDec == false) checkDec(btn);
+  if (displ.innerHTML.length < INPUT_LIMIT) {
+    if (btn == "." && flagDec == false) checkDec(btn);
 
-  if (btn != ".") {
-    if (displ.innerHTML == 0 && displ.innerHTML.length <= 1) {
-      displ.innerHTML = btn;
-    } else {
-      displ.innerHTML += btn;
+    if (btn != ".") {
+      if (displ.innerHTML == 0 && displ.innerHTML.length <= 1) {
+        displ.innerHTML = btn;
+      } else {
+        displ.innerHTML += btn;
+      }
+      if (flagDec == true) decCounter++;
     }
-    if (flagDec == true) decCounter++;
   }
+  flagOper = false;
 }
 
 function registerOperator(btn) {
@@ -134,7 +140,6 @@ function resetDec() {
 }
 
 function displayResults(option, sum) {
-  console.log(sum);
   if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
   if (sum.toFixed(sum.toString().length) > 11 && option == 2)
     sum = expo(sum, 6);
