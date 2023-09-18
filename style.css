@@ -18,7 +18,6 @@ button {
   height: 120px;
   font-size: 56px;
   background-color: #91b0b3;
-  border-radius: 12px;
 }
 
 .secondBackground{
@@ -28,7 +27,7 @@ button {
   margin-top: 220px;
   width: 540px;
   height: 870px;
-  background-color: #796f5d;
+  background-color: #6f685d;
   border-radius: 15px;  
 }
 
@@ -37,7 +36,7 @@ button {
   height: 800px;
   padding: 18px;
   padding-bottom: 24px;
-  background-color: #F0EDEE;
+  background-color: #edf0ef;
   border-style: solid;
   border-radius: 15px;
   border-width: 5px;
@@ -51,9 +50,9 @@ button {
   display: flex;
   align-items: end;
   justify-content: end;
+  padding-bottom: 10px;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-bottom: 10px;
 }
 
 .displaySmall {
@@ -78,20 +77,16 @@ button {
  border-bottom-right-radius: 15px;
 }
 
-.buttonsContainer{
-  outline: solid;
-  border-radius: 10px;
-  background-color: #100e0b;
-}
-
 .top {
   margin-top: 12px;
   display: flex;
-  border-radius: 10px;
-  background-color: #100e0b;
 }
 
 .middle {
+  display: flex;
+}
+
+.bottom {
   display: flex;
 }
 
@@ -101,8 +96,20 @@ button {
   flex-wrap: wrap;
 }
 
-.bottom {
-  display: flex;
+.top #clear {
+  border-top-left-radius: 25px;
+}
+
+.top #mult {
+  border-top-right-radius: 25px;
+}
+
+.bottom #num0 {
+  border-bottom-left-radius: 25px;
+}
+
+.right #sum {
+  border-bottom-right-radius: 25px;
 }
 
 .bottom #num0 {
