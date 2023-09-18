@@ -21,7 +21,7 @@ const displSmall = document.getElementById("displaySmall");
 document.addEventListener("keydown", keyPressed);
 
 function keyPressed(e) {
-  console.log(e.code);
+  convertKeys(e);
 }
 
 //Add EventListener for number buttons
@@ -34,26 +34,7 @@ numberBtn.forEach((button) => {
 //Add EventListener for operator buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.id == "clear" || button.id == "sum") allClear(button.id);
-    else if (divError == false) {
-      {
-        if (num1 == 0 || displ.innerHTML.charAt(0) == "-") {
-          num1 = displ.innerText;
-          displSmall.innerHTML = displ.innerText;
-          resetDec();
-        } else {
-          if (flagOper == true && button.className == "operator") {
-            changeOperator(button);
-          } else {
-            num2 = displ.innerText;
-            resetDec();
-            operate(tempOper, num1, num2);
-          }
-        }
-        num1 = displSmall.innerHTML;
-        if (flagOper == false) registerOperator(button);
-      }
-    }
+    checkOperator(button);
   });
 });
 
@@ -71,6 +52,29 @@ function registerNumber(btn) {
     }
   }
   flagOper = false;
+}
+
+function checkOperator(button) {
+  if (button.id == "clear" || button.id == "sum") allClear(button.id);
+  else if (divError == false) {
+    {
+      if (num1 == 0 || displ.innerHTML.charAt(0) == "-") {
+        num1 = displ.innerText;
+        displSmall.innerHTML = displ.innerText;
+        resetDec();
+      } else {
+        if (flagOper == true && button.className == "operator") {
+          changeOperator(button);
+        } else {
+          num2 = displ.innerText;
+          resetDec();
+          operate(tempOper, num1, num2);
+        }
+      }
+      num1 = displSmall.innerHTML;
+      if (flagOper == false) registerOperator(button);
+    }
+  }
 }
 
 function registerOperator(btn) {
@@ -139,30 +143,6 @@ function resetDec() {
   decCounter = 0;
 }
 
-function displayResults(option, sum) {
-  if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
-  if (sum.toFixed(sum.toString().length) > 11 && option == 2)
-    sum = expo(sum, 6);
-  if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
-
-  if (equalBtn == true) {
-    //Displaying results in displ
-    if (option == 1) {
-      displ.innerHTML = "I am Error";
-      divError = true;
-    } else {
-      displ.innerHTML = sum;
-    }
-  }
-  //Displaying results in displSmall
-  if (option == 1) {
-    displSmall.innerHTML = "I am Error";
-    divError = true;
-  } else {
-    displSmall.innerHTML = sum;
-  }
-}
-
 function operate(oper, num1, num2) {
   let sum = 0;
   let option = 0;
@@ -191,6 +171,30 @@ function operate(oper, num1, num2) {
   displayResults(option, sum);
 }
 
+function displayResults(option, sum) {
+  if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
+  if (sum.toFixed(sum.toString().length) > 11 && option == 2)
+    sum = expo(sum, 6);
+  if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
+
+  if (equalBtn == true) {
+    //Displaying results in displ
+    if (option == 1) {
+      displ.innerHTML = "I am Error";
+      divError = true;
+    } else {
+      displ.innerHTML = sum;
+    }
+  }
+  //Displaying results in displSmall
+  if (option == 1) {
+    displSmall.innerHTML = "I am Error";
+    divError = true;
+  } else {
+    displSmall.innerHTML = sum;
+  }
+}
+
 //Functions for all calculations
 function add(num1, num2) {
   return (parseFloat(num1) * 100 + parseFloat(num2) * 100) / 100;
@@ -210,4 +214,55 @@ function divid(num1, num2) {
 
 function expo(num, e) {
   return Number.parseFloat(num).toExponential(e);
+}
+
+//Function to convert keyboard inputs
+function convertKeys(key) {
+  console.log(key.code);
+  //We check for number input while excluding Fkeys
+  if (isNaN(key.code.slice(-1)) == false && key.code.length > 2) {
+    if (divError == false) registerNumber(key.code.slice(-1));
+  }
+
+  switch (key.code) {
+    case "NumpadAdd":
+      key.innerHTML = "+";
+      key.id = "add";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "NumpadSubtract":
+      key.innerHTML = "-";
+      key.id = "sub";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "NumpadMultiply":
+      key.innerHTML = "&#215;";
+      key.id = "mult";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "NumpadDivide":
+      key.innerHTML = "&#247;";
+      key.id = "divid";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "NumpadEnter":
+      key.id = "sum";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "Escape":
+      key.id = "clear";
+      key.innerClass = "operator";
+      checkOperator(key);
+      break;
+    case "NumpadDecimal":
+      key.id = "dec";
+      key.innerHTML = ".";
+      registerNumber(key.innerHTML);
+      break;
+  }
 }
