@@ -55,7 +55,8 @@ function registerNumber(btn) {
 }
 
 function checkOperator(button) {
-  if (button.id == "clear" || button.id == "sum") allClear(button.id);
+  if (button.id == "delete") deleteChar(); 
+  else if (button.id == "clear" || button.id == "sum") allClear(button.id);
   else if (divError == false) {
     {
       if (num1 == 0 || displ.innerHTML.charAt(0) == "-") {
@@ -103,6 +104,13 @@ function changeOperator(btn) {
       displSmall.innerHTML[displSmall.innerHTML.length - 2] +
       btn.innerHTML;
   }
+}
+
+function deleteChar(){
+  if(displ.innerHTML.length > 1)
+  displ.innerHTML = displ.innerHTML.slice(0, -1);
+  else
+  displ.innerHTML = "0";
 }
 
 function allClear(btn) {
@@ -263,6 +271,11 @@ function convertKeys(key) {
       key.id = "dec";
       key.innerHTML = ".";
       registerNumber(key.innerHTML);
+      break;
+      case "Backspace":
+      key.id = "delete";
+      key.innerClass = "operator";
+      checkOperator(key);;
       break;
   }
 }
