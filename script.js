@@ -55,7 +55,7 @@ function registerNumber(btn) {
 }
 
 function checkOperator(button) {
-  if (button.id == "delete") deleteChar(); 
+  if (button.id == "delete") deleteChar();
   else if (button.id == "clear" || button.id == "sum") allClear(button.id);
   else if (divError == false) {
     {
@@ -106,11 +106,10 @@ function changeOperator(btn) {
   }
 }
 
-function deleteChar(){
-  if(displ.innerHTML.length > 1)
-  displ.innerHTML = displ.innerHTML.slice(0, -1);
-  else
-  displ.innerHTML = "0";
+function deleteChar() {
+  if (displ.innerHTML.length > 1)
+    displ.innerHTML = displ.innerHTML.slice(0, -1);
+  else displ.innerHTML = "0";
 }
 
 function allClear(btn) {
@@ -175,15 +174,14 @@ function operate(oper, num1, num2) {
       option = 2;
       break;
   }
-
   displayResults(option, sum);
 }
 
 function displayResults(option, sum) {
   if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
-  if (sum.toFixed(sum.toString().length) > 11 && option == 2)
+  else if (sum.toFixed(sum.toString().length) > 11 && option == 2)
     sum = expo(sum, 6);
-  if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
+  else if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
 
   if (equalBtn == true) {
     //Displaying results in displ
@@ -226,7 +224,6 @@ function expo(num, e) {
 
 //Function to convert keyboard inputs
 function convertKeys(key) {
-  console.log(key.code);
   //We check for number input while excluding Fkeys
   if (isNaN(key.code.slice(-1)) == false && key.code.length > 2) {
     if (divError == false) registerNumber(key.code.slice(-1));
@@ -272,10 +269,10 @@ function convertKeys(key) {
       key.innerHTML = ".";
       registerNumber(key.innerHTML);
       break;
-      case "Backspace":
+    case "Backspace":
       key.id = "delete";
       key.innerClass = "operator";
-      checkOperator(key);;
+      checkOperator(key);
       break;
   }
 }
