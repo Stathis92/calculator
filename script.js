@@ -178,11 +178,13 @@ function operate(oper, num1, num2) {
 }
 
 function displayResults(option, sum) {
+  console.log(sum, option, sum.toString().length);
   if (sum.toString().length > 11 && option == 3) sum = sum.toFixed(decLength);
-  else if (sum.toFixed(sum.toString().length) > 11 && option == 2)
+  else if (sum.toString().length > 11 && option == 2)
     sum = expo(sum, 6);
   else if (sum.toString().length > 11 && option != 2) sum = expo(sum, 6);
 
+  console.log(sum);
   if (equalBtn == true) {
     //Displaying results in displ
     if (option == 1) {
